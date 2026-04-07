@@ -4,13 +4,13 @@ Setup your JavaScript application to propagate context. This way your OpenTeleme
 
 ## Features
 
-✅ **Web Trace Provider** - Distributed tracing with OTLP HTTP exporter  
-✅ **Metrics** - Application metrics with OTLP HTTP exporter  
-✅ **Logs** - Structured logging with OTLP HTTP exporter  
-✅ **Document Load Instrumentation** - Automatic page load tracing  
-✅ **Fetch Instrumentation** - Optional: Trace HTTP requests with W3C Trace Context propagation  
-✅ **TypeScript** - Full type safety (strict mode)  
-✅ **Lightweight** - Minimal dependencies, tree-shakeable
+- **Web Trace Provider** - Distributed tracing with OTLP HTTP exporter  
+- **Metrics** - Application metrics with OTLP HTTP exporter  
+- **Logs** - Structured logging with OTLP HTTP exporter  
+- **Document Load Instrumentation** - Automatic page load tracing  
+- **Fetch Instrumentation** - Optional: Trace HTTP requests with W3C Trace Context propagation  
+- **TypeScript** - Full type safety (strict mode)  
+- **Lightweight** - Minimal dependencies, tree-shakeable
 
 ## Installation
 
