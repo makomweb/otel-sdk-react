@@ -19,8 +19,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "lint": "eslint src tests",
-    "lint:fix": "eslint src tests --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "qa": "npm run build && npm run lint && npm test"
   },
   "keywords": [
