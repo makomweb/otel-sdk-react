@@ -1,0 +1,43 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build package
+        run: npm run build
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Create GitHub release note
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = context.payload.release.tag_name;
+            const releaseUrl = context.payload.release.html_url;
+            console.log(`✅ Published @makomweb/otel-sdk-react@${version}`);
+            console.log(`📦 npm: https://www.npmjs.com/package/@makomweb/otel-sdk-react`);
+            console.log(`🔗 Release: ${releaseUrl}`);
