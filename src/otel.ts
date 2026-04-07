@@ -15,11 +15,16 @@ import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-http';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 import * as SDK_LOGS from '@opentelemetry/sdk-logs';
-import { OTEL_COLLECTOR_ADDRESS } from './env';
 
-export function setupOTelSDK(): void {
+/**
+ * Initialize OpenTelemetry SDK with explicit configuration.
+ *
+ * @param collectorAddress - OTLP collector endpoint URL (e.g., http://localhost:4318)
+ * @example
+ * setupOTelSDK(import.meta.env.VITE_OTEL_COLLECTOR_ADDRESS);
+ */
+export function setupOTelSDK(collectorAddress: string): void {
   // Create a resource object with service name attribute
-  // Using direct object to avoid Resource constructor issues in some environments
   const resource = {
     attributes: {
       [SEMRESATTRS_SERVICE_NAME]: 'frontend',
@@ -33,7 +38,7 @@ export function setupOTelSDK(): void {
   });
 
   const traceExporter = new OTLPTraceExporter({
-    url: `${OTEL_COLLECTOR_ADDRESS}/v1/traces`,
+    url: `${collectorAddress}/v1/traces`,
     headers: {},
   });
 
@@ -41,7 +46,7 @@ export function setupOTelSDK(): void {
 
   // METRICS
   const metricExporter = new OTLPMetricExporter({
-    url: `${OTEL_COLLECTOR_ADDRESS}/v1/metrics`,
+    url: `${collectorAddress}/v1/metrics`,
     headers: {},
   });
   const metricReader = new PeriodicExportingMetricReader({
@@ -60,7 +65,7 @@ export function setupOTelSDK(): void {
 
   // LOGS
   const logExporter = new OTLPLogExporter({
-    url: `${OTEL_COLLECTOR_ADDRESS}/v1/logs`,
+    url: `${collectorAddress}/v1/logs`,
     headers: {},
   });
 

@@ -48,8 +48,8 @@ import { setupOTelSDK } from '@makomweb/otel-sdk-react';
 
 import App from './App';
 
-// Initialize OTEL infrastructure first
-setupOTelSDK();
+// Initialize OTEL infrastructure with explicit collector address
+setupOTelSDK(import.meta.env.VITE_OTEL_COLLECTOR_ADDRESS || 'http://localhost:4318');
 
 // Then render React
 const root = ReactDOM.createRoot(document.getElementById('root')!);
@@ -67,38 +67,26 @@ import { setupOTelSDK, setupFetchInstrumentation } from '@makomweb/otel-sdk-reac
 import { BACKEND_API_URL } from './config';
 
 // Initialize core OTEL
-setupOTelSDK();
+setupOTelSDK(import.meta.env.VITE_OTEL_COLLECTOR_ADDRESS || 'http://localhost:4318');
 
 // Optional: trace backend API calls
 setupFetchInstrumentation(BACKEND_API_URL);
 ```
 
-### 3. Configure collector address
+### 3. Configure via environment variables
 
-Set `window.OTEL_COLLECTOR_ADDRESS` before app loads (in `index.html`):
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My App</title>
-    <script>
-      window.OTEL_COLLECTOR_ADDRESS = 'http://localhost:4318';
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
-```
-
-Or use environment variables:
+Create `.env.local`:
 
 ```bash
-VITE_OTEL_COLLECTOR_ADDRESS=http://localhost:4318 npm run dev
+VITE_OTEL_COLLECTOR_ADDRESS=http://localhost:4318
+VITE_BACKEND_API_URL=http://localhost:8081
+```
+
+Or for production:
+
+```bash
+VITE_OTEL_COLLECTOR_ADDRESS=https://otel-collector.production.example.com:4318
+VITE_BACKEND_API_URL=https://api.production.example.com
 ```
 
 ## API Reference
@@ -170,11 +158,13 @@ import { setupOTelSDK, setupFetchInstrumentation } from '@makomweb/otel-sdk-reac
 import App from './App';
 import { getConfig } from './config';
 
-// Initialize OTEL first
-setupOTelSDK();
+// Get app configuration (can come from anywhere: env vars, config files, computed)
+const config = getConfig();
+
+// Initialize OTEL with explicit collector address
+setupOTelSDK(config.otelCollectorAddress);
 
 // Then set up application-specific tracing
-const config = getConfig();
 setupFetchInstrumentation(config.apiUrl);
 
 // Finally render app
@@ -188,17 +178,27 @@ root.render(
 
 ```typescript
 // config.ts
-export function getConfig() {
+export interface AppConfig {
+  apiUrl: string;
+  otelCollectorAddress: string;
+}
+
+export function getConfig(): AppConfig {
   return {
     apiUrl: import.meta.env.VITE_BACKEND_API_URL || 'http://localhost:8081',
+    otelCollectorAddress: import.meta.env.VITE_OTEL_COLLECTOR_ADDRESS || 'http://localhost:4318',
   };
 }
 ```
 
 ```bash
-# .env.local
-VITE_BACKEND_API_URL=http://api.production.example.com
-OTEL_COLLECTOR_ADDRESS=http://otel-collector.production.example.com:4318
+# .env.local (development)
+VITE_BACKEND_API_URL=http://localhost:8081
+VITE_OTEL_COLLECTOR_ADDRESS=http://localhost:4318
+
+# .env.production (production)
+VITE_BACKEND_API_URL=https://api.production.example.com
+VITE_OTEL_COLLECTOR_ADDRESS=https://otel.production.example.com:4318
 ```
 
 ## Troubleshooting
