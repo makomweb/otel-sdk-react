@@ -1,0 +1,13 @@
+src/
+tests/
+coverage/
+.github/
+.eslintrc.js
+tsconfig.json
+vitest.config.ts
+*.test.ts
+*.spec.ts
+.gitignore
+CONTRIBUTING.md
+.DS_Store
+*.log

@@ -1,0 +1,68 @@
+{
+  "name": "@makomweb/otel-sdk-react",
+  "version": "0.1.0",
+  "description": "Minimal, production-ready OpenTelemetry SDK for React applications",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint src tests --fix",
+    "qa": "npm run build && npm run lint && npm test"
+  },
+  "keywords": [
+    "opentelemetry",
+    "otel",
+    "tracing",
+    "observability",
+    "react",
+    "distributed-tracing",
+    "telemetry"
+  ],
+  "author": "makomweb",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makomweb/otel-sdk-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/makomweb/otel-sdk-react/issues"
+  },
+  "homepage": "https://github.com/makomweb/otel-sdk-react",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "@opentelemetry/api": ">=1.7.0",
+    "@opentelemetry/sdk-trace-web": ">=1.17.0",
+    "@opentelemetry/sdk-metrics": ">=1.17.0",
+    "@opentelemetry/sdk-logs": ">=0.50.0",
+    "@opentelemetry/exporter-trace-otlp-http": ">=0.43.0",
+    "@opentelemetry/exporter-metrics-otlp-http": ">=0.43.0",
+    "@opentelemetry/exporter-logs-otlp-http": ">=0.50.0",
+    "@opentelemetry/instrumentation": ">=0.43.0",
+    "@opentelemetry/instrumentation-fetch": ">=0.51.0",
+    "@opentelemetry/instrumentation-document-load": ">=0.33.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}
