@@ -1,6 +1,6 @@
 # @makomweb/otel-sdk-react
 
-A minimal, production-ready OpenTelemetry SDK for React applications. Provides core OTEL setup with optional fetch instrumentation for tracing backend API calls.
+Setup your JavaScript application to propagate context. This way your OpenTelemetry enabled application is able to "connect" traces between various services. 
 
 ## Features
 
