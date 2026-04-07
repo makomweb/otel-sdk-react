@@ -42,6 +42,9 @@
     "url": "https://github.com/makomweb/otel-sdk-react/issues"
   },
   "homepage": "https://github.com/makomweb/otel-sdk-react",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@opentelemetry/api": ">=1.7.0",
     "@opentelemetry/exporter-logs-otlp-http": ">=0.50.0",
