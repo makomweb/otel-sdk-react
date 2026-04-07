@@ -1,4 +1,4 @@
-.PHONY: help install build lint lint-fix test test-watch coverage qa clean publish
+.PHONY: help install build lint lint-fix test test-watch coverage qa clean
 
 help:
 	@echo "otel-sdk-react Makefile"
@@ -13,7 +13,8 @@ help:
 	@echo "  make coverage      Run tests with coverage report"
 	@echo "  make qa            Run full quality check (build + lint + test)"
 	@echo "  make clean         Remove build artifacts and node_modules"
-	@echo "  make publish       Publish to npm (requires auth)"
+	@echo ""
+	@echo "Note: Publishing happens automatically via GitHub Actions on release creation."
 	@echo ""
 
 install:
@@ -42,6 +43,3 @@ qa:
 
 clean:
 	rm -rf dist node_modules coverage
-
-publish:
-	npm publish --access public
