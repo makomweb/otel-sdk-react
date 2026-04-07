@@ -1,4 +1,4 @@
-# @makomweb/otel-sdk-react
+# otel-sdk-react
 
 Setup your JavaScript application to propagate context. This way your OpenTelemetry enabled application is able to "connect" traces between various services. 
 
